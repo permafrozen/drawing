@@ -6,8 +6,8 @@
 date=$(date +%d_%m_%Y)
 time="[$(date +%H:%M:%S)]:"
 name="KRITA_${date}.kra"
-path="./drawings/${name}"
-template="./templates/_TEMPLATE.kra"
+path="$(pwd)/drawings/${name}"
+template="$(pwd)/templates/_TEMPLATE.kra"
 hyprland=0
 krita=0
 
@@ -22,10 +22,10 @@ if [[ $(krita -v) != 0 ]]; then
 fi
 
 open_krita() {
-    if hyprland; then
-        echo "HYPRCTL DISPATCHING KRITA ..."
+    if [[ $hyprland && $krita ]]; then
+        echo "$time HYPRCTL DISPATCHING KRITA ..."
         hyprctl dispatch exec krita "$path"
-    elif krita; then
+    elif $krita && ! $hyprland; then
         echo "$time OPENING KRITA FILE WITH KRITA ..."
         krita "$path" &
     else
