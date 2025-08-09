@@ -25,8 +25,6 @@ open_krita() {
     if [[ $hyprland && $krita ]]; then
         echo "$time HYPRCTL DISPATCHING KRITA ..."
         hyprctl dispatch exec krita "$path"
-        sleep 5
-        hyprctl dispatch fullscreen 0
     elif $krita && ! $hyprland; then
         echo "$time OPENING KRITA FILE WITH KRITA ..."
         krita "$path" &
